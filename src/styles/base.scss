@@ -99,3 +99,32 @@ button {
     }
   }
 }
+
+// 通用淡入淡出过渡（浮层使用）
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.35s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+// 轻量文字链接（返回/重新选择）
+.text-link {
+  appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: $color-text-secondary;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  padding: 6px 10px;
+  transition: color 0.4s ease;
+
+  &:hover,
+  &:focus-visible {
+    color: $color-text-moon;
+  }
+}

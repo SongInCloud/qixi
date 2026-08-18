@@ -36,6 +36,7 @@ export interface DaughterCard {
   title: string
   subtitle: string
   content: string
+  symbol?: string
 }
 
 // 七夕笺（PRD REQ-LETTER-04）

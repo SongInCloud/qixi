@@ -31,3 +31,19 @@ export function fadeOut(el: Element | null, options: FadeOptions = {}) {
     ease: 'power2.in',
   })
 }
+
+// 卡片/浮层入场：0.96 → 1（PRD §8.2 Scale 规范）
+export function scaleIn(el: Element | null, options: FadeOptions = {}) {
+  if (!el) return
+  return gsap.fromTo(
+    el,
+    { opacity: 0, scale: 0.96 },
+    {
+      opacity: 1,
+      scale: 1,
+      duration: options.duration ?? 0.5,
+      delay: options.delay ?? 0,
+      ease: 'power2.out',
+    },
+  )
+}

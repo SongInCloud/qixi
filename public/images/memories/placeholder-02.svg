@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#18213d"/>
+      <stop offset="100%" stop-color="#080a18"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#g)"/>
+  <path d="M0 470 Q200 380 400 460 T800 440 V600 H0 Z" fill="#10162c" opacity="0.75"/>
+  <circle cx="180" cy="140" r="3" fill="#e3c98b"/>
+  <circle cx="240" cy="180" r="2" fill="#e3c98b" opacity="0.8"/>
+  <circle cx="620" cy="160" r="2.4" fill="#e9e3d5"/>
+  <circle cx="700" cy="220" r="1.6" fill="#e9e3d5" opacity="0.8"/>
+  <text x="400" y="310" text-anchor="middle" font-family="Noto Serif SC, Songti SC, serif" font-size="42" fill="#e3c98b" letter-spacing="8">回忆 · 02</text>
+  <text x="400" y="360" text-anchor="middle" font-family="Noto Sans SC, PingFang SC, sans-serif" font-size="18" fill="#aaa495" letter-spacing="4">占位图片 · 可替换</text>
+</svg>
