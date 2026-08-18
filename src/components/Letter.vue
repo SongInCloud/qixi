@@ -98,7 +98,7 @@ function read() {
   position: relative;
   z-index: 2;
   width: min(620px, calc(100vw - 40px));
-  max-height: 82vh;
+  max-height: min(82vh, calc(100dvh - 112px));
   overflow-y: auto;
   padding: 48px 48px 34px;
   background:
@@ -188,6 +188,7 @@ function read() {
 
 @media (max-width: 767px) {
   .letter-paper {
+    width: calc(100vw - 28px);
     padding: 34px 24px 28px;
   }
 

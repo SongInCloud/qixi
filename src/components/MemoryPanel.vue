@@ -145,7 +145,7 @@ onMounted(() => {
 @use '@/styles/variables' as *;
 
 .memory-panel {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: $z-panel;
   display: flex;
@@ -162,7 +162,8 @@ onMounted(() => {
   width: min(560px, 100%);
   max-height: 86vh;
   overflow-y: auto;
-  padding: 36px 36px 32px;
+  // 为关闭按钮保留独立的顶部区域，避免与图片操作区重叠。
+  padding: 64px 36px 32px;
   background: rgba(16, 22, 44, 0.92);
   border: 1px solid rgba(201, 168, 106, 0.28);
   border-radius: 4px;
@@ -173,13 +174,14 @@ onMounted(() => {
   position: absolute;
   top: 12px;
   right: 12px;
+  z-index: 3;
   width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: none;
-  border: none;
+  background: rgba(16, 22, 44, 0.96);
+  border: 1px solid rgba(233, 227, 213, 0.14);
   color: $color-text-secondary;
   cursor: pointer;
   border-radius: 50%;
@@ -315,7 +317,7 @@ onMounted(() => {
 
 @media (max-width: 767px) {
   .memory-panel__card {
-    padding: 28px 22px 26px;
+    padding: 60px 22px 26px;
   }
 
   .memory-panel__stage {

@@ -44,7 +44,7 @@ const style = computed(() => ({
     @click="emit('open')"
   >
     <span class="memory-star__dot" aria-hidden="true" />
-    <span class="memory-star__label serif">✦ {{ memory.title }}</span>
+    <!-- <span class="memory-star__label serif">✦ {{ memory.title }}</span> -->
   </button>
 </template>
 
@@ -84,6 +84,7 @@ const style = computed(() => ({
 }
 
 .memory-star__dot {
+  position: relative;
   width: 9px;
   height: 9px;
   border-radius: 50%;
@@ -95,6 +96,16 @@ const style = computed(() => ({
   transition:
     box-shadow 0.5s ease,
     background 0.5s ease;
+}
+
+.memory-star--featured .memory-star__dot::before {
+  content: '';
+  position: absolute;
+  inset: -9px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0;
+  animation: memory-star-invitation 2.8s ease-out infinite;
 }
 
 .memory-star__label {
@@ -160,8 +171,31 @@ const style = computed(() => ({
   }
 }
 
+@keyframes memory-star-invitation {
+  0% {
+    transform: scale(0.55);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.42;
+  }
+  75%,
+  100% {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .memory-star--featured .memory-star__label {
+    opacity: 0.9;
+    transform: translate(-50%, 0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .memory-star--featured .memory-star__dot {
+  .memory-star--featured .memory-star__dot,
+  .memory-star--featured .memory-star__dot::before {
     animation: none;
   }
 }

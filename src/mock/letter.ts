@@ -6,9 +6,9 @@ export const letter: Letter = {
   title: '七夕笺',
   greeting: '展信安。',
   paragraphs: [
-    '这里填写第一段。',
-    '这里填写第二段。',
-    '这里填写第三段。',
+    '愿你',
+    '所得皆所愿，所遇皆所求。',
+    '所求皆所得，所失皆无碍。',
   ],
   ending: '七夕快乐。',
 }
