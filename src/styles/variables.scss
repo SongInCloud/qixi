@@ -1,0 +1,39 @@
+// ============================================================
+// 设计令牌（Design Tokens）
+// 视觉规范来源：《七月初七》PRD v1.1 §7
+// ============================================================
+
+// 色彩
+$color-bg-night: #080a18;
+$color-bg-deep-blue: #10162c;
+$color-bg-secondary: #18213d;
+$color-text-moon: #e9e3d5;
+$color-text-secondary: #aaa495;
+$color-gold: #c9a86a;
+$color-gold-light: #e3c98b;
+$color-cinnabar: #b84a42;
+$color-white-60: rgba(255, 255, 255, 0.6);
+
+// 字体
+$font-serif:
+  'Noto Serif SC',
+  'Source Han Serif SC',
+  'Songti SC',
+  serif;
+$font-sans:
+  'Noto Sans SC',
+  'PingFang SC',
+  'Microsoft YaHei',
+  sans-serif;
+
+// 动画
+$duration-fade: 0.9s;
+$duration-transition: 1s;
+$ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+// 层级
+$z-starfield: 0;
+$z-section: 1;
+$z-chapter: 20;
+$z-panel: 30;
+$z-lightbox: 50;
