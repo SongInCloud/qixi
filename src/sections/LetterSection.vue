@@ -1,74 +1,136 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { gsap } from 'gsap'
 import { fadeIn } from '@/utils/animation'
 import { letter } from '@/mock/letter'
+import Letter from '@/components/Letter.vue'
 
-const emit = defineEmits<{ next: [] }>()
+type Stage = 'letter' | 'ending' | 'gone'
 
-const paperRef = ref<HTMLElement | null>(null)
-const buttonRef = ref<HTMLButtonElement | null>(null)
+const stage = ref<Stage>('letter')
+const moonRef = ref<HTMLElement | null>(null)
+const endingFirstRef = ref<HTMLParagraphElement | null>(null)
+const endingFinalRef = ref<HTMLElement | null>(null)
+
+const timers: number[] = []
 
 onMounted(() => {
-  fadeIn(paperRef.value, { delay: 0.2 })
-  fadeIn(buttonRef.value, { delay: 0.8 })
+  fadeIn(moonRef.value, { delay: 0.4, duration: 1.6 })
+})
+
+// 结束状态序列（REQ-ENDING-01）：
+// 祝福语 → 七夕快乐 → 最后只剩星河
+function finishReading() {
+  stage.value = 'ending'
+  void nextTick(() => {
+    fadeIn(endingFirstRef.value, { duration: 1 })
+
+    timers.push(
+      window.setTimeout(() => {
+        fadeIn(endingFinalRef.value, { duration: 1.2, delay: 0.2 })
+      }, 2600),
+    )
+
+    timers.push(
+      window.setTimeout(() => {
+        const targets = [endingFirstRef.value, endingFinalRef.value].filter(
+          (el): el is HTMLElement => el !== null,
+        )
+        if (targets.length) {
+          gsap.to(targets, { opacity: 0, y: -10, duration: 1.4, ease: 'power2.inOut' })
+        }
+        timers.push(
+          window.setTimeout(() => {
+            stage.value = 'gone'
+          }, 1500),
+        )
+      }, 6800),
+    )
+  })
+}
+
+onBeforeUnmount(() => {
+  timers.forEach((id) => window.clearTimeout(id))
 })
 </script>
 
 <template>
   <section class="section letter">
-    <div ref="paperRef" class="letter__paper">
-      <h2 class="letter__title serif">{{ letter.title }}</h2>
-      <p class="letter__greeting">{{ letter.greeting }}</p>
-      <p v-for="(paragraph, index) in letter.paragraphs" :key="index" class="letter__paragraph">
-        {{ paragraph }}
-      </p>
-      <p class="letter__ending serif">{{ letter.ending }}</p>
-    </div>
+    <div ref="moonRef" class="letter__moon" aria-hidden="true" />
+    <div class="letter__vignette" aria-hidden="true" />
 
-    <!-- 结束状态（REQ-ENDING-01）在后续阶段接入 -->
-    <button ref="buttonRef" class="btn-text" @click="emit('next')">结束</button>
+    <Transition name="fade">
+      <Letter v-if="stage === 'letter'" :letter="letter" @read="finishReading" />
+      <div v-else-if="stage === 'ending'" class="letter__ending" aria-live="polite">
+        <p ref="endingFirstRef" class="letter__ending-first serif">
+          七月初七。<br />
+          愿你岁岁欢愉。<br />
+          所愿皆有所成。
+        </p>
+        <h2 ref="endingFinalRef" class="letter__ending-final serif">七夕快乐。</h2>
+      </div>
+    </Transition>
   </section>
 </template>
 
 <style lang="scss">
 @use '@/styles/variables' as *;
 
-.letter__paper {
-  max-width: 620px;
-  width: 100%;
-  padding: 48px 44px;
-  background: rgba(233, 227, 213, 0.055);
-  border: 1px solid rgba(233, 227, 213, 0.14);
-  border-radius: 4px;
-  text-align: left;
+.letter {
+  gap: 0;
 }
 
-.letter__title {
-  font-size: clamp(1.5rem, 3.5vw, 2rem);
-  letter-spacing: 0.28em;
-  text-indent: 0.28em;
-  text-align: center;
-  color: $color-gold-light;
-  margin-bottom: 28px;
+.letter__moon {
+  position: absolute;
+  top: 12%;
+  right: 13%;
+  z-index: 1;
+  width: clamp(70px, 12vw, 120px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 38% 35%,
+    #f5efdf,
+    #e7ddc6 55%,
+    rgba(231, 221, 198, 0.25) 78%,
+    transparent 82%
+  );
+  box-shadow:
+    0 0 60px rgba(233, 227, 213, 0.28),
+    0 0 120px rgba(233, 227, 213, 0.12);
 }
 
-.letter__greeting {
-  font-size: 1.05rem;
-  margin-bottom: 18px;
-  color: $color-text-moon;
-}
-
-.letter__paragraph {
-  margin-bottom: 16px;
-  color: $color-white-60;
-  font-size: 0.95rem;
-  line-height: 2.2;
+.letter__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(8, 10, 24, 0.5) 100%);
+  pointer-events: none;
 }
 
 .letter__ending {
-  margin-top: 28px;
-  text-align: right;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 34px;
+  text-align: center;
+}
+
+.letter__ending-first {
+  font-size: clamp(1.15rem, 2.6vw, 1.5rem);
+  line-height: 2.3;
+  letter-spacing: 0.18em;
+  text-indent: 0.18em;
+  color: $color-text-moon;
+}
+
+.letter__ending-final {
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
   color: $color-gold-light;
-  letter-spacing: 0.14em;
+  text-shadow: 0 0 40px rgba(227, 201, 139, 0.35);
 }
 </style>
