@@ -16,15 +16,23 @@ $color-white-60: rgba(255, 255, 255, 0.6);
 
 // 字体
 $font-serif:
-  'Noto Serif SC',
-  'Source Han Serif SC',
+  'STKaiti',
+  'Kaiti SC',
+  'KaiTi',
+  'FZKai-Z03',
+  'Noto Serif CJK SC',
   'Songti SC',
   serif;
 $font-sans:
-  'Noto Sans SC',
+  'LXGW WenKai',
+  'STKaiti',
+  'Kaiti SC',
+  'KaiTi',
+  'FZKai-Z03',
+  'Noto Serif CJK SC',
+  'Songti SC',
   'PingFang SC',
-  'Microsoft YaHei',
-  sans-serif;
+  serif;
 
 // 动画
 $duration-fade: 0.9s;

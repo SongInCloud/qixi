@@ -80,7 +80,7 @@ function closeCard() {
       古时女子于七夕乞巧，<br />
       祈愿聪慧、灵巧，也祈愿未来。
     </p>
-    <p ref="leadRef" class="daughter__lead">而我想把今夜，留给你。</p>
+    <p ref="leadRef" class="daughter__lead">而今晚，只为你而来。</p>
 
     <!-- 卡片默认态：标题 + 短句 + 装饰符号（REQ-DAUGHTER-05） -->
     <ul ref="cardsRef" class="daughter__cards">
@@ -131,7 +131,7 @@ function closeCard() {
 <style lang="scss">
 @use '@/styles/variables' as *;
 
-.daughter {
+.section.daughter {
   gap: 22px;
 }
 
@@ -155,11 +155,18 @@ function closeCard() {
 }
 
 .daughter__cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 14px;
   width: min(820px, 100%);
   list-style: none;
+
+  > li {
+    display: flex;
+    flex: 0 1 calc((100% - 28px) / 3);
+    width: calc((100% - 28px) / 3);
+  }
 }
 
 .daughter__card {
@@ -167,6 +174,8 @@ function closeCard() {
   flex-direction: column;
   align-items: center;
   gap: 6px;
+  width: 100%;
+  height: 100%;
   min-height: 132px;
   padding: 22px 20px;
   border: 1px solid rgba(233, 227, 213, 0.16);
@@ -208,7 +217,7 @@ function closeCard() {
 }
 
 .daughter__overlay {
-  position: absolute;
+  position: fixed;
   inset: 0;
   z-index: $z-panel;
   display: flex;
@@ -295,12 +304,24 @@ function closeCard() {
 }
 
 @media (max-width: 767px) {
-  .daughter__cards {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  .section.daughter {
+    justify-content: flex-start;
+    padding: 72px 18px 40px;
+  }
+
+  .daughter__cards > li {
+    flex-basis: calc((100% - 14px) / 2);
+    width: calc((100% - 14px) / 2);
   }
 
   .daughter__overlay-card {
     padding: 36px 24px 32px;
+  }
+}
+
+@media (max-height: 720px) {
+  .section.daughter {
+    justify-content: flex-start;
   }
 }
 </style>

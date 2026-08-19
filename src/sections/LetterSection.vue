@@ -76,7 +76,7 @@ onBeforeUnmount(() => {
 <style lang="scss">
 @use '@/styles/variables' as *;
 
-.letter {
+.section.letter {
   gap: 0;
 }
 

@@ -123,7 +123,7 @@ function finishFlight() {
       <p ref="bodyRef" class="qiqiao__body">
         古人于七夕乞巧。<br />
         乞聪慧，乞巧思，乞美好。<br />
-        那么今夜，你想求什么？
+        那么今晚，你想求什么？
       </p>
     </div>
 
@@ -187,7 +187,7 @@ function finishFlight() {
 <style lang="scss">
 @use '@/styles/variables' as *;
 
-.qiqiao {
+.section.qiqiao {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -314,6 +314,29 @@ function finishFlight() {
 @media (prefers-reduced-motion: reduce) {
   .qiqiao__star {
     animation: none;
+  }
+}
+
+@media (max-width: 767px), (max-height: 720px) {
+  .section.qiqiao {
+    overflow-y: auto;
+  }
+
+  .qiqiao__head {
+    flex: 0 0 auto;
+    padding: 72px 18px 0;
+  }
+
+  .qiqiao__stage {
+    flex: 1 0 auto;
+    min-height: 300px;
+    padding: 24px 18px;
+  }
+
+  .qiqiao__foot {
+    flex: 0 0 auto;
+    min-height: 76px;
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
   }
 }
 </style>
